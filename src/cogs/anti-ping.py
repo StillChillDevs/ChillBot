@@ -2,7 +2,7 @@
 # Anti ghost ping
 # Copyright 2022 StillChillDevs
 
-import discord #upm package(py-cord)
+import discord
 from discord.ext import commands
 import storage
 
