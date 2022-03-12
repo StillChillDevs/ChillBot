@@ -5,5 +5,5 @@
 # Permission Settings #
 #######################
 
-OWNER_IDS = []
+OWNER_IDS = set()
 TOKEN = ''
