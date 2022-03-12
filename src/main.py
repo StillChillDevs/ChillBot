@@ -1,3 +1,5 @@
+import config
+
 import discord
 from discord.ext import commands
 
@@ -6,7 +8,7 @@ import re
 from discord.commands import Option
 
 intents = discord.Intents.all()
-bot = discord.Bot(intents=intents)
+bot = discord.Bot(intents=intents, owner_ids=config.OWNER_IDS)
 
 
 @bot.slash_command(name='flag')
@@ -26,3 +28,5 @@ async def report_command(
     #Check if message has already been flagged
     if guild_id in flag_data.keys():
         if flagged_message_id = None #havent finished this command yet
+
+bot.run(config.TOKEN)

@@ -5,4 +5,5 @@
 # Permission Settings #
 #######################
 
-CO_OWNER_ID = 731185273681215650
+OWNER_IDS = []
+TOKEN = ''
