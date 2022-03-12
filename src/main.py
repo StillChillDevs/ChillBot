@@ -3,6 +3,7 @@ import config
 import discord
 from discord.ext import commands
 
+import os
 import re
 # import json
 from discord.commands import Option
@@ -28,5 +29,9 @@ async def report_command(
     #Check if message has already been flagged
     if guild_id in flag_data.keys():
         if flagged_message_id = None #havent finished this command yet
+
+for file in os.listdir('cogs'):
+    if file.endswith('.py'):
+        bot.load_extension('cogs.' + file[:-3])
 
 bot.run(config.TOKEN)
