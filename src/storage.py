@@ -2,6 +2,7 @@
 # Turns Python functions into SQL
 
 import sqlite3
+from json import loads, dumps
 
 ####################
 # GLOBAL USER DATA #
@@ -29,6 +30,8 @@ def get_global_user_data(user_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
+    elif value_type = 'dict':
+        value = loads(value)
 
     connection.close()
 
@@ -39,6 +42,10 @@ def set_global_user_data(user_id, key, value):
     cursor = connection.cursor()
 
     value_type = type(value).__name__
+
+    # If the value is a dictionary, turn it into a string
+    if value_type = 'dict':
+        value = dumps(value)
 
     # Delete previous entry
     cursor.execute('DELETE FROM global_user_data WHERE user_id=? AND key=?', (user_id, key))
@@ -74,6 +81,8 @@ def get_guild_user_data(guild_id, user_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
+    elif value_type = 'dict':
+        value = loads(value)
 
     connection.close()
 
@@ -84,6 +93,10 @@ def set_guild_user_data(guild_id, user_id, key, value):
     cursor = connection.cursor()
 
     value_type = type(value).__name__
+
+    # If the value is a dictionary, turn it into a string
+    if value_type = 'dict':
+        value = dumps(value)
 
     # Delete previous entry
     cursor.execute('DELETE FROM guild_user_data WHERE guild_id=? AND user_id=? AND key=?', (guild_id, user_id, key))
@@ -119,6 +132,8 @@ def get_guild_data(guild_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
+    elif value_type = 'dict':
+        value = loads(value)
 
     connection.close()
 
@@ -129,6 +144,10 @@ def set_guild_data(guild_id, key, value):
     cursor = connection.cursor()
 
     value_type = type(value).__name__
+
+    # If the value is a dictionary, turn it into a string
+    if value_type = 'dict':
+        value = dumps(value)
 
     # Delete previous entry
     cursor.execute('DELETE FROM guild_data WHERE guild_id=? AND key=?', (guild_id, key))
