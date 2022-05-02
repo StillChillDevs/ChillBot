@@ -45,4 +45,9 @@ class AutoMod(commands.Cog):
         #   Yes:
         #   Get guild.spam_ping_punishment
         #   punish(guild_id, member, punishment_type)
-        pass
+
+    
+        # Does the server even have spam ping detection on? If no, return
+        # Does the message have mentions? If no, return
+        if not storage.get_guild_data(message.guild.id, 'is_spam_ping_detect') or len(message.mentions) == 0:
+            return
