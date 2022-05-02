@@ -4,6 +4,7 @@
 import discord
 from discord.ext import commands
 import storage
+from datetime import datetime, timezone
 
 class AutoMod(commands.Cog):
     def __init__(self, bot):
@@ -51,3 +52,18 @@ class AutoMod(commands.Cog):
         # Does the message have mentions? If no, return
         if not storage.get_guild_data(message.guild.id, 'is_spam_ping_detect') or len(message.mentions) == 0:
             return
+        
+        # Get last_pinged
+        last_pinged = storage.get_guild_user_data(message.guild.id, message.author.id, 'last_pinged')
+
+        for mentioned_user in message.mentions:
+
+            # Does mentioned user_id exist in guild.user.last_pinged.keys()?
+            if last_pinged != None and mentioned_user in last_pinged.keys():
+
+                # Is guild.user.last_pinged[mentioned user_id]['last_pinged'] - current_unix_time < 60?
+                if last_pinged[mentioned_user.id]['last_pinged'] - datetime.now(timezone.utc).timestamp() < 60:
+
+            else:
+                #37
+                pass
