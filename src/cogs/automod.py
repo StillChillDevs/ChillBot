@@ -63,7 +63,16 @@ class AutoMod(commands.Cog):
 
                 # Is guild.user.last_pinged[mentioned user_id]['last_pinged'] - current_unix_time < 60?
                 if last_pinged[mentioned_user.id]['last_pinged'] - datetime.now(timezone.utc).timestamp() < 60:
+                    # Yes: Change guild.user.last_pinged[mentioned user_id]['ping_count'] by 1
 
+                    last_pinged[mentioned_user.id]['ping_count'] += 1
+                    storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
+                else:
+                    # No: Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1     
+
+                    last_pinged[mentioned_user.id]['ping_count'] = 1
+                    storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
+                
             else:
                 #37
                 pass
