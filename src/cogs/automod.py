@@ -60,6 +60,7 @@ class AutoMod(commands.Cog):
 
             # Does mentioned user_id exist in guild.user.last_pinged.keys()?
             if last_pinged != None and mentioned_user in last_pinged.keys():
+                # Yes:
 
                 # Is guild.user.last_pinged[mentioned user_id]['last_pinged'] - current_unix_time < 60?
                 if last_pinged[mentioned_user.id]['last_pinged'] - datetime.now(timezone.utc).timestamp() < 60:
@@ -72,7 +73,26 @@ class AutoMod(commands.Cog):
 
                     last_pinged[mentioned_user.id]['ping_count'] = 1
                     storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
-                
-            else:
-                #37
-                pass
+            
+            elif last_pinged == None:
+                # Last_pinged is none, so make the dictionary
+                last_pinged = {}
+
+                # Set guild.user.last_pinged[mentioned user_id] to {}
+                last_pinged[mentioned_user.id] = {}
+
+                # Set guild.user.last_pinged[mentioned user_id]['last_pinged'] to current unix time
+                last_pinged[mentioned_user.id]['last_pinged']
+
+                # Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1
+                last_pinged[mentioned_user.id]['ping_count'] = 1
+            
+            elif last_pinged != None and not (mentioned_user in last_pinged.keys()):
+                # Set guild.user.last_pinged[mentioned user_id] to {}
+                last_pinged[mentioned_user.id] = {}
+
+                # Set guild.user.last_pinged[mentioned user_id]['last_pinged'] to current unix time
+                last_pinged[mentioned_user.id]['last_pinged']
+
+                # Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1
+                last_pinged[mentioned_user.id]['ping_count'] = 1
