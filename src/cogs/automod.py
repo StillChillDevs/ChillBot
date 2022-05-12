@@ -91,3 +91,10 @@ class AutoMod(commands.Cog):
             if ping_count > ping_per_second_max:
                 spam_ping_punishment = storage.get_guild_data(message.guild.id, 'spam_ping_punishment')
                 punish(message.author.id, spam_ping_punishment)
+    
+    ####################
+    # HELPER FUNCTIONS #
+    ####################
+
+    def punish(user_id, punishment_name):
+        pass
