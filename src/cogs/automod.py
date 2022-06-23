@@ -96,5 +96,6 @@ class AutoMod(commands.Cog):
     # HELPER FUNCTIONS #
     ####################
 
-    def punish(user_id, punishment_name):
+    def punish(user_id, guild_id, punishment_name):
+        '''Punish '''
         pass
