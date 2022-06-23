@@ -1,1 +1,0 @@
-Pseudocode for punish() function found in automod.py
