@@ -22,80 +22,17 @@ class AutoMod(commands.Cog):
     # PROCESS FUNCTIONS #
     #####################
 
-    def check_spam_ping(message):    
+    def check_spam_ping(message):  
+        '''Takes in the message and checks if the user is spam pinging'''
+
+        # Goals:
+        # 1. Check how many members were mentioned by this message, set that to members_mentioned
+        # 2. Increment the amount of times the sender mentioned others in the last 60 seconds
+        # 3. Check if the the sender mentioned people above the limit, if so mute them
+
         # Does the server even have spam ping detection on? If no, return
         # Does the message have mentions? If no, return
         if not storage.get_guild_data(message.guild.id, 'is_spam_ping_detect') or len(message.mentions) == 0:
             return
+
         
-        # Get last_pinged
-        last_pinged = storage.get_guild_user_data(message.guild.id, message.author.id, 'last_pinged')
-
-        for mentioned_user in message.mentions:
-
-            # Does mentioned user_id exist in guild.user.last_pinged.keys()?
-            if last_pinged != None and mentioned_user in last_pinged.keys():
-                # Yes:
-
-                # Is guild.user.last_pinged[mentioned user_id]['last_pinged'] - current_unix_time < 60?
-                if last_pinged[mentioned_user.id]['last_pinged'] - datetime.now(timezone.utc).timestamp() < 60:
-                    # Yes: Change guild.user.last_pinged[mentioned user_id]['ping_count'] by 1
-
-                    last_pinged[mentioned_user.id]['ping_count'] += 1
-                    storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
-                else:
-                    # No: Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1     
-
-                    last_pinged[mentioned_user.id]['ping_count'] = 1
-                    storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
-            
-            elif last_pinged == None:
-                # Last_pinged is none, so make the dictionary
-                last_pinged = {}
-
-                # Set guild.user.last_pinged[mentioned user_id] to {}
-                last_pinged[mentioned_user.id] = {}
-
-                # Set guild.user.last_pinged[mentioned user_id]['last_pinged'] to current unix time
-                last_pinged[mentioned_user.id]['last_pinged']
-
-                # Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1
-                last_pinged[mentioned_user.id]['ping_count'] = 1
-
-                # Store the updated last_pinged
-                storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
-            
-            elif last_pinged != None and not (mentioned_user in last_pinged.keys()):
-                # Set guild.user.last_pinged[mentioned user_id] to {}
-                last_pinged[mentioned_user.id] = {}
-
-                # Set guild.user.last_pinged[mentioned user_id]['last_pinged'] to current unix time
-                last_pinged[mentioned_user.id]['last_pinged']
-
-                # Set guild.user.last_pinged[mentioned user_id]['ping_count'] to 1
-                last_pinged[mentioned_user.id]['ping_count'] = 1
-
-                # Store the updated last_pinged
-                storage.set_guild_user_data(message.guild.id, message.author.id, 'last_pinged', last_pinged)
-            
-
-            # PUNISHMENT CODE #
-
-            # Get guild.user.last_pinged[mentioned user_id]['ping_count']
-            ping_count = storage.get_guild_user_data(message.guild.id, message.author.id, 'last_pinged')[mentioned_user.id]['ping_count']
-
-            # Get guild.ping_per_second_max
-            ping_per_second_max = storage.get_guild_data(message.guild.id, 'ping_per_second_max')
-            
-            # Is guild.user.last_pinged[mentioned user_id]['ping_count'] > ping_per_second_max
-            if ping_count > ping_per_second_max:
-                spam_ping_punishment = storage.get_guild_data(message.guild.id, 'spam_ping_punishment')
-                punish(message.author.id, spam_ping_punishment)
-    
-    ####################
-    # HELPER FUNCTIONS #
-    ####################
-
-    def punish(user_id, guild_id, punishment_name):
-        '''Punish '''
-        pass
