@@ -30,7 +30,7 @@ def get_global_user_data(user_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
-    elif value_type = 'dict':
+    elif value_type == 'dict':
         value = loads(value)
 
     connection.close()
@@ -44,7 +44,7 @@ def set_global_user_data(user_id, key, value):
     value_type = type(value).__name__
 
     # If the value is a dictionary, turn it into a string
-    if value_type = 'dict':
+    if value_type == 'dict':
         value = dumps(value)
 
     # Delete previous entry
@@ -81,7 +81,7 @@ def get_guild_user_data(guild_id, user_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
-    elif value_type = 'dict':
+    elif value_type == 'dict':
         value = loads(value)
 
     connection.close()
@@ -95,7 +95,7 @@ def set_guild_user_data(guild_id, user_id, key, value):
     value_type = type(value).__name__
 
     # If the value is a dictionary, turn it into a string
-    if value_type = 'dict':
+    if value_type == 'dict':
         value = dumps(value)
 
     # Delete previous entry
@@ -132,7 +132,7 @@ def get_guild_data(guild_id, key):
         value = bool(value)
     elif value_type == 'str':
         value = str(value)
-    elif value_type = 'dict':
+    elif value_type == 'dict':
         value = loads(value)
 
     connection.close()
@@ -146,7 +146,7 @@ def set_guild_data(guild_id, key, value):
     value_type = type(value).__name__
 
     # If the value is a dictionary, turn it into a string
-    if value_type = 'dict':
+    if value_type == 'dict':
         value = dumps(value)
 
     # Delete previous entry
