@@ -32,7 +32,7 @@ class AutoMod(commands.Cog):
         await self.check_spam_ping(message)
 
     # Muterole command
-    @commands.slash_command(guild_ids=[976313937429684254])
+    @commands.slash_command(guild_ids=[992932470834069654])
     async def muterole(self, ctx,
         muterole: Option(discord.Role, 'The role to give to a muted person'),
         description='Set the server mute role'
@@ -52,11 +52,12 @@ class AutoMod(commands.Cog):
         ctx.respond(embed=embed)
     
     # Mute command
-    @commands.slash_command(guild_ids=[976313937429684254])
+    @commands.slash_command(guild_ids=[992932470834069654])
+
 
 
     # Ping Spam Slash Commands
-    @commands.slash_command(guild_ids=[976313937429684254])
+    @commands.slash_command(guild_ids=[992932470834069654])
     async def set(self, ctx,
         limit: Option(int, 'The max amount of mentions per minute'),
         mute_duration: Option(int, 'Mute duration, IN MINUTES, if the person is muted for spam pinging'),
